@@ -1,15 +1,14 @@
 package app;
 
-import java.util.ArrayList;
-
-import io.javalin.http.Context;
-import io.javalin.http.Handler;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+
+import io.javalin.http.Context;
+import io.javalin.http.Handler;
 
 
 /**
@@ -90,14 +89,14 @@ public class PageMoviesList implements Handler {
         // 🚨 This block of code is for Pre-Req students.
         // Altneratively we can use JDBCConnection to add HTML for the movies list
         // Uncomment the code to use the JDBCConnection Objects example(s)
-        // JDBCConnection jdbc = new JDBCConnection();
-        // ArrayList<Movie> movies = jdbc.getMovies();
-        // html = html + "<h1>All Movies with Years (from JDBCConnection)</h1>" +
-        //               "<ul>";
-        // for (Movie movie : movies) {
-        //     html = html + "<li>" + movie.name + " was made in " + movie.year + "</li>";
-        // }
-        // html = html + "</ul>";
+        JDBCConnection jdbc = new JDBCConnection();
+        ArrayList<Movie> movies = jdbc.getMovies();
+        html = html + "<h1>All Movies with Years (from JDBCConnection)</h1>" +
+                       "<ul>";
+        for (Movie movie : movies) {
+             html = html + "<li>" + movie.name + " was made in " + movie.year + "</li>";
+        }
+        html = html + "</ul>";
         
         // TODO: Add your code here for the other queries
 

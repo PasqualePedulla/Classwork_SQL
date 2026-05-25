@@ -48,7 +48,7 @@ public class JDBCConnection {
             statement.setQueryTimeout(30);
 
             // The Query
-            String query = "SELECT * FROM movie";
+            String query = "SELECT MVTITLE FROM MOVIE";
             
             // Get Result
             ResultSet results = statement.executeQuery(query);
