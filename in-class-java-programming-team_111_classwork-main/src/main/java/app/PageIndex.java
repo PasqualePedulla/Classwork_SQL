@@ -1,7 +1,5 @@
 package app;
 
-import java.util.ArrayList;
-
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
 
@@ -39,7 +37,7 @@ public class PageIndex implements Handler {
         // This uses a Java v15+ Text Block
         html = html + """
             <div class='topnav'>
-                <a href='/'>Prog. 2 Sample</a>
+                <a href='/'>HomePage</a>
                 <a href='2X'>Prog. 2X</a>
                 <a href='2Y'>Prog. 2Y</a>
                 <a href='movies'>Prog. 3 Sample</a>
