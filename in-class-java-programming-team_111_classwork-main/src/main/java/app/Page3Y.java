@@ -1,5 +1,10 @@
 package app;
 
+import java.sql.Connection; // Added missing import
+import java.sql.Statement;  // Added missing import
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import io.javalin.http.Context;
@@ -62,12 +67,19 @@ public class Page3Y implements Handler {
         """;
 
         // Add Div for page Content
-        html = html + """
-            <div class='content'>
-                <p>Use your combined Java, HTML and SQL skills to show the list of all movie stars.</p>
-                <p>Use the code for the "Prog. 3 Sample" page in the "PageMoviesList.java" file as reference.</p>
-            </div>
-            """;
+        html = html + "<div class='content'>";
+        html = html + "<p>Use your combined Java, HTML and SQL skills to show the list of all movie stars.</p>";
+        
+        // --- DISPLAY THE DATABASE RESULTS ON THE WEBPAGE ---
+        html = html + "<ul>";
+        ArrayList<String> moviesList = getMovieStars();
+        for (String movie : moviesList) {
+            html = html + "<li>" + movie + "</li>";
+        }
+        html = html + "</ul>";
+        // ----------------------------------------------------
+
+        html = html + "</div>";
 
         // Footer
         html = html + """
@@ -79,10 +91,63 @@ public class Page3Y implements Handler {
         // Finish the HTML webpage
         html = html + "</body>" + "</html>";
 
-
         // DO NOT MODIFY THIS
         // Makes Javalin render the webpage
         context.html(html);
     }
 
-}
+    /**
+     * Get all of the Movie Titles in the database
+     * @return
+     *    Returns an ArrayList of String with ONLY the movie titles
+     */
+    public ArrayList<String> getMovieStars() {
+        // Create the ArrayList to return - of Strings for the movie titles
+        ArrayList<String> movies = new ArrayList<String>();
+
+        // Setup the variable for the JDBC connection
+        Connection connection = null;
+
+        try {
+            // Connect to JDBC database
+            // Note: Ensure JDBCConnection.DATABASE points to your valid SQLite string
+            connection = DriverManager.getConnection(JDBCConnection.DATABASE);
+
+            // Prepare a new SQL Query & Set a timeout
+            Statement statement = connection.createStatement();
+            statement.setQueryTimeout(30);
+
+            // The Query
+            String query = "SELECT mvtitle, yrmde FROM movie";
+            
+            // Get Result
+            ResultSet results = statement.executeQuery(query);
+
+            // Process all of the results
+            while (results.next()) {
+                String movieName = results.getString("mvtitle");
+                int movieYear = results.getInt("yrmde");
+
+                // Store the movieName and Year in the ArrayList to return
+                movies.add(movieName + " - " + movieYear);
+            }
+
+            // Close the statement because we are done with it
+            statement.close();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        } finally {
+            // Safety code to cleanup
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
+        }
+
+        // Finally we return all of the movie stars
+        return movies;
+    }
+} // Added missing closing bracket for the class

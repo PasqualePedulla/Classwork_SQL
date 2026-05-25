@@ -142,7 +142,7 @@ public class PageMoviesList implements Handler {
             statement.setQueryTimeout(30);
 
             // The Query
-            String query = "SELECT mvtitle, yrmde FROM movie";
+            String query = "SELECT STARNAME FROM STAR";
             
             // Get Result
             ResultSet results = statement.executeQuery(query);
@@ -154,11 +154,10 @@ public class PageMoviesList implements Handler {
                 // We can lookup a column of the a single record in the
                 // result using the column name
                 // BUT, we must be careful of the column type!
-                String movieName = results.getString("mvtitle");
-                int movieYear = results.getInt("yrmde");
+                String starName = results.getString("STARNAME");
 
-                // Store the movieName in the ArrayList to return
-                movies.add(movieName + " - " + movieYear);
+                // Store the starName in the ArrayList to return
+                movies.add(starName);
             }
 
             // Close the statement because we are done with it
