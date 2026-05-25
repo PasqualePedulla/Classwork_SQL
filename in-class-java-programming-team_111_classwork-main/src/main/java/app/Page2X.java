@@ -54,7 +54,7 @@ public class Page2X implements Handler {
             <div class='header'>
                 <h1>
                     <img src='logo.png' class='top-image' alt='RMIT logo' height='75'>
-                    OKAY I THINK IT WORKS NOW???
+                    OKAY I THINK IT WORKS NOW??? :/
                 </h1>
             </div>
         """;
