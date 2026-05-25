@@ -24,7 +24,7 @@ public class Page2X implements Handler {
 
         // Add some Header information
         html = html + "<head>" + 
-               "<title>Movie's Page</title>";
+               "<title>TESTING :D</title>";
 
         // Add some CSS (external file)
         html = html + "<link rel='stylesheet' type='text/css' href='common.css' />";
